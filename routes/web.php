@@ -21,4 +21,4 @@ use App\Http\Controllers\ComicController;
 // Route::resource('comics', ComicController::class);
 
 
-Route::get('/comics', [ComicController::class, 'index']);
+Route::resource('comics', ComicController::class);

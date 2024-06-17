@@ -9,21 +9,24 @@
 </head>
 
 <body>
-    <h1>Elenco dei fumetti</h1>
+    @extends('layouts.app')
 
-    <ul>
-        @foreach ($comics as $comic)
-            <li>
-                <h2>{{ $comic->title }}</h2>
-                <img src="{{ $comic->thumb }}" alt="{{ $comic->title }}">
-                <p><strong>Descrizione:</strong> {{ $comic->description }}</p>
-                <p><strong>Prezzo:</strong> {{ $comic->price }}</p>
-                <p><strong>Series:</strong> {{ $comic->series }}</p>
-                <p><strong>Data di vendita:</strong> {{ $comic->sale_date }}</p>
-                <p><strong>Tipo:</strong> {{ $comic->type }}</p>
-            </li>
-        @endforeach
-    </ul>
+    @section('content')
+        <h1>Fumetti</h1>
+        <a href="{{ route('comics.create') }}">Crea un nuovo fumetto</a>
+        <ul>
+            @foreach ($comics as $comic)
+                <li>
+                    <a href="{{ route('comics.show', $comic->id) }}">{{ $comic->title }}</a>
+                    <form action="{{ route('comics.destroy', $comic->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Cancella</button>
+                    </form>
+                </li>
+            @endforeach
+        </ul>
+    @endsection
 </body>
 
 </html>
